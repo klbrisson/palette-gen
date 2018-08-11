@@ -32,7 +32,9 @@
               },
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/vendor/sass/*"
+            ]
           },
           "configurations": {
             "production": {
