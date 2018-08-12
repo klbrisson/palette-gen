@@ -12,7 +12,8 @@
   } else {
     root.Sass = factory();
   }
-}(this, function () {/*global document*/
+}(this, function () {
+  /*global document*/
 // identify the path sass.js is located at in case we're loaded by a simple
 // <script src="path/to/sass.js"></script>
 // this path can be used to identify the location of
