@@ -38,10 +38,12 @@ export class AppComponent implements AfterViewInit {
     const el = this.styleRef;
     const textArea = this.paletteScss;
     const color = e.target.value;
+    const prop = 'color';
     
     Sass.readFile('theme-variables.scss', function(content) {
-      const changed = content.replace(/\$color:[^;]*/, `$color: ${color}`);
-
+      const regex = new RegExp(`\\$${prop}:[^;]*`);
+      const changed = content.replace(regex, `$color: ${color}`);
+      
       Sass.writeFile('theme-variables.scss', changed, () => {
         Sass.compileFile('theme-output.scss', (res) => {
           textArea.nativeElement.value = changed;
