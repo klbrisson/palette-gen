@@ -15,12 +15,7 @@ export class AppComponent implements AfterViewInit {
     const el = this.styleRef;
 
     Sass.importer((request, done) => {
-
-      if (request.path) {
-        // Sass.js already found a file,
-        // we probably want to just load that
-        done();
-      } else if (request.current === '~@angular/material/theming') {
+      if (request.current === '~@angular/material/theming') {
         done({
           path: '/sass/_theming'
         })
@@ -31,10 +26,6 @@ export class AppComponent implements AfterViewInit {
     });
 
     Sass.preloadFiles('./assets/sass', '', ['_theming.scss', 'theme-input.scss'], function() {
-      Sass.listFiles(function(files) {
-        console.log('list after preload files', files);
-      });
-
       Sass.compileFile('theme-input.scss', function(res) {
         el.nativeElement.innerHTML = `<style>${res.text}</style>`;
       });
