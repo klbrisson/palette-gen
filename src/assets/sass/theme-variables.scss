@@ -1,0 +1,36 @@
+$color: green;
+$black-87: rgba(0, 0, 0, .87);
+$white-87: rgba(255, 255, 255, .87);
+
+$primary-palette: (
+  50: #ffebee,
+  100: #ffcdd2,
+  200: #ef9a9a,
+  300: #e57373,
+  400: #ef5350,
+  500: $color, //var(--nav-color),
+  600: #e53935,
+  700: #d32f2f,
+  800: #c62828,
+  900: #b71c1c,
+  A100: #ff8a80,
+  A200: #ff5252,
+  A400: #ff1744,
+  A700: #d50000,
+  contrast: (
+    50: $black-87,
+    100: $black-87,
+    200: $black-87,
+    300: $black-87,
+    400: $black-87,
+    500: white,
+    600: white,
+    700: white,
+    800: $white-87,
+    900: $white-87,
+    A100: $black-87,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);

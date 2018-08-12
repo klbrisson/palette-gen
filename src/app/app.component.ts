@@ -9,7 +9,9 @@ declare var Sass: any;
 })
 export class AppComponent implements AfterViewInit {
   title = 'palette-gen';
+
   @ViewChild('styleRef') styleRef: ElementRef;
+  @ViewChild('paletteScss') paletteScss: ElementRef;
 
   ngAfterViewInit() {
     const el = this.styleRef;
@@ -25,8 +27,8 @@ export class AppComponent implements AfterViewInit {
       }
     });
 
-    Sass.preloadFiles('./assets/sass', '', ['_theming.scss', 'theme-input.scss'], function() {
-      Sass.compileFile('theme-input.scss', function(res) {
+    Sass.preloadFiles('./assets/sass', '', ['_theming.scss', 'theme-variables.scss', 'theme-output.scss'], function() {
+      Sass.compileFile('theme-output.scss', function(res) {
         el.nativeElement.innerHTML = `<style>${res.text}</style>`;
       });
     });
@@ -34,12 +36,17 @@ export class AppComponent implements AfterViewInit {
 
   changeColor(e: any) {
     const el = this.styleRef;
+    const textArea = this.paletteScss;
     const color = e.target.value;
     
-    Sass.readFile('theme-input.scss', function(content) {
+    Sass.readFile('theme-variables.scss', function(content) {
       const changed = content.replace(/\$color:[^;]*/, `$color: ${color}`);
-      Sass.compile(changed, (res) => {
-        el.nativeElement.innerHTML = `<style>${res.text}</style>`;
+
+      Sass.writeFile('theme-variables.scss', changed, () => {
+        Sass.compileFile('theme-output.scss', (res) => {
+          textArea.nativeElement.value = changed;
+          el.nativeElement.innerHTML = `<style>${res.text}</style>`;
+        });
       });
     });
   }
